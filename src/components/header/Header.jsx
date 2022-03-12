@@ -5,7 +5,6 @@ import { Link, useLocation } from "react-router-dom";
 import "./header.scss";
 
 import logo from "../../assets/tmovie.png";
-import { cleanup } from "@testing-library/react";
 
 const headerNav = [
     {
@@ -17,13 +16,17 @@ const headerNav = [
         path: "/movie",
     },
     {
-        display: "TV series",
+        display: "TV Series",
         path: "/tv",
     },
 ];
-function Header() {
+
+const Header = () => {
     const { pathname } = useLocation();
     const headerRef = useRef(null);
+
+    const active = headerNav.findIndex((e) => e.path === pathname);
+
     useEffect(() => {
         const shrinkHeader = () => {
             if (
@@ -40,7 +43,7 @@ function Header() {
             window.removeEventListener("scroll", shrinkHeader);
         };
     }, []);
-    const active = headerNav.findIndex((e) => e.path === pathname);
+
     return (
         <div ref={headerRef} className="header">
             <div className="header__wrap container">
@@ -61,6 +64,6 @@ function Header() {
             </div>
         </div>
     );
-}
+};
 
 export default Header;

@@ -1,4 +1,129 @@
 # What I learned?
+
+## useparams
+URL 파라미터를 간편하게 변수에 저장할 수 있다.
+### import
+```js
+import { useParams } from 'react-router-dom
+```
+
+### URL 파라미터란?
+URL 뒤에 붙은 가변값으로 코드상에서 `:` 뒤에 붙는 주소의 실제 값이다.
+```
+const Routes = () => {
+    return (
+        <Switch>
+            <Route path="/:category/search/:keyword" component={Catalog} />
+            <Route path="/:category/:id" component={Detail} />
+            <Route path="/:category" component={Catalog} />
+            <Route path="/" exact component={Home} />
+        </Switch>
+    );
+};
+```
+### 사용법
+```js
+// localhost:3000/movie
+import { useParams } from 'react-router-dom
+const App = () => {
+	 const { keyword } = useParams(); // movie
+}
+```
+
+## 비구조화 할당(구조 분해)
+비구조화 할당은 객체 안에 있는 값을 추출해서 변수에 바로 선언할 수 있게 해준다.
+### 사용법
+```js
+const object = {a: 1, b: 2};
+{a, b} = object;
+
+console.log(a); // 1
+console.log(b); // 2
+```
+만약 객체 안에 없는 값을 구조 분해를 통해 선언하게 되면 `undefined`로 출력된다.
+```js
+const object = {a: 1};
+{a, b} = object;
+
+console.log(a); // 1
+console.log(b); // undefined
+```
+### 비구조화 할당 시 기본 값 설정하기
+
+```js
+const object = {a: 1};
+{a, b = 2} = object;
+
+console.log(a); // 1
+console.log(b); // 2
+```
+
+### 비구조화 할당에서 객체 안에 이름을 바꾸고 싶다면?
+기존에 객체 안에 값의 이름을 바꿔줄 때는 아래와 같은 과정을 거쳤다.
+
+```js
+const animal = {
+	name: '순돌이',
+    type: '강아지'
+}
+
+const nickname = animal.name;
+console.log(nickname); // '순돌이'
+```
+비구조화 할당을 하면서 객체 안에 이름을 바꿀 때는 `:`를 이용하면 된다.
+```js
+const animal = {
+	name: '순돌이',
+    type: '강아지'
+}
+
+const {name: nickname} = animal;
+console.log(nickanme) // '순돌이'
+```
+### 배열의 비구조화 할당
+```js
+const array = [1, 2];
+[one, two] = array;
+
+console.log(one); // 1;
+console.log(two); // 2;
+```
+
+### 배열의 비구조화 할당에서 기본값 설정
+```js
+const array = [1,2];
+[one, two, three = 3] = array;
+
+console.log(one); // 1
+console.log(two); // 2
+console.log(three); // 3
+```
+
+### 깊은 값의 비구조화 할당
+```js
+const deepObject = {
+	state: {
+    	information: {
+        	name: hoon,
+          	languages: [korean, english, js]
+        }
+    },
+  	value: 10
+} 
+
+const{
+	state: {
+    	information: {name, laguages}
+    },
+	value
+} = deepObject;
+
+const extracted = {
+	name, languages, value
+}
+
+console.log(extracted);
+```
 ## scss
 ### mixin
 mixin은 스타일 시트에서 재사용할 css 선언 그룹을 정의하는 기능이다.
